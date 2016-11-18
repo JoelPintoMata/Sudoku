@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8"></meta>
+   <title>Hello world</title>
+    <style>
+        input {
+            height: 20px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input hidden="true" id="sudokuBoardId" th:value="${sudokuBoardId}"/>
+    <table align="center">
+        <tr th:each="line, iterLine : ${sudokuBoardArray}">
+            <td th:each="cell, iterColumn : ${line}">
+                <input th:if="${cell} == 0" th:id = "${iterLine.index}+''+${iterColumn.index}" onchange="myFunction(this)"/>
+                <input th:if="${cell} != 0" th:value="${cell}" th:id = "${iterLine.index}+''+${iterColumn.index}" onchange="myFunction(this)"/>
+            </td>
+        </tr>
+    </table>
+    <script>
+        function myFunction(domElement) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var data = xhr.responseText;
+                    if(data != "")
+                        alert(data);
+                }
+            }
+            xhr.open("POST", "check?sudokuBoardId="+document.getElementById("sudokuBoardId").value+"\u0026lineColumn="+domElement.id+"\u0026value="+domElement.value, true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
