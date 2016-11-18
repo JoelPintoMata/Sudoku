@@ -20,3 +20,17 @@ http://localhost:4567/generate?level=<difficulty_level>
 ```
 Difficulty level:
 [0..81] the number of empty cells
+
+Usage
+=====
+
+Run
+---
+```
+```
+
+Test
+----
+```
+$ mvn test
+```
